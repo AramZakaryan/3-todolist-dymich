@@ -12,8 +12,8 @@ function App() {
         setTasks] =
         useState<TaskType[]>(
             [
-                {id: v1(), title: "CSS & HTML", isDone: true},
-                {id: v1(), title: "JS", isDone: true},
+                {id: v1(), title: "CSS & HTML", isDone: false},
+                {id: v1(), title: "JS", isDone: false},
                 {id: v1(), title: "React", isDone: false},
                 {id: v1(), title: "Redux", isDone: false}
             ]
@@ -47,6 +47,15 @@ function App() {
             filteredTasks = tasks.filter(el => el.isDone) :
             filteredTasks = tasks
 
+    const changeStatus = (changeTaskID:string, changeTaskIsDone:boolean) => {
+        let changeStatusTask = tasks.find (el=> el.id ===changeTaskID)
+        if (changeStatusTask) {
+            changeStatusTask.isDone = !changeTaskIsDone
+        }
+        setTasks([...tasks])
+    }
+
+
 
     return (
         <div className="App">
@@ -55,6 +64,8 @@ function App() {
                       removeTask={removeTask}
                       changeFilterCond={changeFilterCond}
                       addTask={addTask}
+                      changeStatus={changeStatus}
+                      filterCond={filterCond}
             />
         </div>
     );
